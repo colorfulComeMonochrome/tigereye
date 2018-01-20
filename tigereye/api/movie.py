@@ -8,11 +8,3 @@ from tigereye.helper.code import Code
 class MovieView(ApiView):
     def all(self):
         return Movie.query.all()
-
-
-
-
-
-
-
-

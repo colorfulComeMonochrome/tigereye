@@ -1,4 +1,5 @@
 from tigereye.models import db, Model
+
 """
     影院ID
     名称
@@ -17,10 +18,3 @@ class Hall(db.Model, Model):
     audio_type = db.Column(db.String(32))
     seats_num = db.Column(db.Integer, default=0, nullable=False)
     status = db.Column(db.Integer, nullable=False, index=True)
-
-
-
-
-
-
-

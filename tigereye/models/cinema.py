@@ -1,9 +1,13 @@
 import math
 import time
+
+from flask import current_app
+
 from tigereye.models import db, Model
 import faker
 import random
 from datetime import datetime
+
 """
     ID
     名称
@@ -57,7 +61,7 @@ class Cinema(db.Model, Model):
                 seats = []
                 for s in range(1, hall.seats_num + 1):
                     seat = Seat()
-                    seat.cid = cinema.cid
+                    seat.cid = hall.cid
                     seat.hid = hall.hid
                     seat.x = s % 5 or 5
                     seat.y = math.ceil(s / 5)
@@ -88,17 +92,4 @@ class Cinema(db.Model, Model):
                         ps.copy(seat)
                         ps.put()
                     PlaySeat.commit()
-        print('create test data done! cost %.2f seconds' % (time.time()-start_time))
-
-
-
-
-
-
-
-
-
-
-
-
-
+        current_app.logger.info('create test data done! cost %.2f seconds' % (time.time() - start_time))

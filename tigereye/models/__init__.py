@@ -45,7 +45,3 @@ class JSONEncoder(_json.JSONEncoder):
         if isinstance(o, db.Model):
             return o.__json__()
         return _json.JSONEncoder.default(self, o)
-
-
-
-

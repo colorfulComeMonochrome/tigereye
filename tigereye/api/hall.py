@@ -5,9 +5,11 @@ from tigereye.models.hall import Hall
 from tigereye.models.seat import Seat
 from tigereye.api import ApiView
 from tigereye.helper.code import Code
+from tigereye.extensions.validator import Validator
 
 
 class HallView(ApiView):
+    @Validator(hid=int)
     def seats(self):
         hid = request.args.get('hid')
         hall = Hall.get(hid)
@@ -15,14 +17,3 @@ class HallView(ApiView):
             return Code.cinema_does_not_exist, request.args
         hall.seats = Seat.query.filter_by(hid=hid).all()
         return hall
-
-
-
-
-
-
-
-
-
-
-

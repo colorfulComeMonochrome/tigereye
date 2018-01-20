@@ -1,3 +1,5 @@
+from flask import current_app
+
 from tigereye.models import db, Model
 
 """
@@ -39,8 +41,7 @@ class Movie(db.Model, Model):
             m.status = 1
             db.session.add(m)
         db.session.commit()
-        print('movie test data done!')
+        current_app.logger.info('movie test data done!')
 
-    # def __dict__(self):
-    #     return self.__json__()
-
+        # def __dict__(self):
+        #     return self.__json__()
