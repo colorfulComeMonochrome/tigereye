@@ -1,0 +1,22 @@
+
+脚本：
+python manage.py shell
+
+测试：
+测全部：
+python -m unittest discover
+测试某个单元：
+python -m unittest tests/test_api_cinema.py 
+
+
+启动项目：
+gunicorn wsgi
+gunicorn wsgi:application（默认为application，如果对象名叫application就不需要加，如果名字不是application就需要加上名字）
+gunicorn -w4 -b 127.0.0.1:5000 wsgi:application   -w4   启动4个进程   -b  绑定端口
+gunicorn -w4 -D wsgi   后台启动
+
+ps ax |grep gunicorn|grep -v grep|cut -d ' ' -f2  显示所有启动的进程
+ps ax |grep gunicorn|grep -v grep|cut -d ' ' -f2|xargs kill   杀死所有gunicorn进程
+
+
+
