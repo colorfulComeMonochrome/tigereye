@@ -1,5 +1,6 @@
 import functools
-from flask import request, Response, make_response, jsonify
+import time
+from flask import request, Response, make_response, jsonify, current_app
 from flask_classy import FlaskView
 from tigereye.helper.code import Code
 
@@ -7,6 +8,14 @@ from tigereye.helper.code import Code
 # 改写FlaskView类，方便添加返回值，返回状态码
 # 将view返回的对象转化为json格式的response(jsonify)
 class ApiView(FlaskView):
+    def before_request(self, name, **kwargs):
+        self.request_start_time = time.time()
+
+    def after_reqeust(self, name, response):
+        current_app.logger.info('%s response time: %s' % (request.path, time.time()-self.request_start_time))
+        print('%s response time: %s' % (request.path, time.time()-self.request_start_time))
+        return response
+
     @classmethod
     def make_proxy_method(cls, name):
         """Creates a proxy function that can be used by Flasks routing. The
@@ -51,9 +60,9 @@ class ApiView(FlaskView):
                 # 如果是tuple类型
                 if response_type == tuple and len(response) > 1:
                     rc, _data = response
-                    return jsonify(rc=rc.value, msg=rc.name, data=_data)
+                    response = jsonify(rc=rc.value, msg=rc.name, data=_data)
                 else:
-                    return jsonify(rc=Code.succ.value,
+                    response = jsonify(rc=Code.succ.value,
                                    msg=Code.succ.name,
                                    data=response)
             # --------------------自定义内容结束------------------------
