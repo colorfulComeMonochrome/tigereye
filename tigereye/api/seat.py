@@ -82,6 +82,8 @@ class SeatView(ApiView):
                 'status': order.status,
             }
         order.sell_order_num = request.params['order_num']
+        # 订单的金额,如果金额不存在则等于0
+        # a = a or b 用法:    a = a, 如果a为空,则a = b
         order.amount = order.amount or 0
         sid_list = []
         for sid, handle_fee, price in seats:
@@ -93,6 +95,7 @@ class SeatView(ApiView):
         order.tickets_num = len(seats)
         order.paid_time = datetime.now()
         order.status = OrderStatus.paid.value
+        # order的内部函数,生成一个由32位随机数组成的取票码(真是情况下,表中应该增加unique字段)
         order.gen_ticket_flag()
         order.save()
         return {

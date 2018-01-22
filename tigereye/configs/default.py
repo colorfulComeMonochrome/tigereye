@@ -1,6 +1,7 @@
 import os
 
 
+# 默认的配置
 class DefaultConfig(object):
     BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
     DEBUG = True

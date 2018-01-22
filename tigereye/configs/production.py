@@ -7,6 +7,7 @@ class ProductionConfig(DefaultConfig):
     JASON_PRETTYPRINT_REGULAR = False
     SQLALCHEMY_ECHO = False
 
+    # 设置邮件配置
     EMAIL_HOST = 'smtp.exmail.qq.com'
     EMAIL_PORT = 465
     EMAIL_HOST_USER = SERVER_EMAIL = DEFAULT_FROM_EMAIL = 'test1@iguye.com'

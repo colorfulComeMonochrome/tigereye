@@ -1,8 +1,11 @@
 # coding=utf-8
+# 枚举类
+# 例:   Code.succ.name = 'succ'  Code.succ.value = 0
 
 from enum import Enum, unique
 
 
+# 用于枚举类的装饰器,保证成员值唯一,此处表示状态码不重复
 @unique
 class Code(Enum):
     """成功"""

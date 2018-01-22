@@ -13,5 +13,6 @@ class PlayView(ApiView):
         return PlaySeat.query.filter(
             PlaySeat.pid == request.params['pid'],
             # seat_type=1表示座位已被锁定
+            # 座位的类型不等于过道类型
             PlaySeat.seat_type != SeatType.road.value
         ).all()

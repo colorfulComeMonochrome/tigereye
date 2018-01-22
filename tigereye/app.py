@@ -8,11 +8,13 @@ from flask_classy import FlaskView
 from tigereye.models import db, JSONEncoder
 
 
+# 创建app的方法
 def create_app(config=None):
     app = Flask(__name__)
     # app.debug = debug
     app.config.from_object('tigereye.configs.default.DefaultConfig')
     app.config.from_object(config)
+    # 应用自己定义的jsonencoder类
     app.json_encoder = JSONEncoder
 
     if not app.debug:
@@ -58,6 +60,7 @@ def create_app(config=None):
     return app
 
 
+# 配置app内默认导入的包，方便shell脚本测试
 def configure_views(app):
     from tigereye.api.cinema import CinemaView
     from tigereye.api.movie import MovieView
